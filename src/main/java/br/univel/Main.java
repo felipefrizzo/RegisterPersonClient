@@ -8,6 +8,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * Created by felipefrizzo on 15/11/16.
@@ -23,6 +24,8 @@ public class Main extends Application {
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
+        Objects.requireNonNull(primaryStage, "Stage cannot be null");
+
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Register Person Application");
 
