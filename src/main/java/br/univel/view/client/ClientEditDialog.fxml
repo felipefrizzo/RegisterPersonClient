@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -28,8 +29,8 @@
             <children>
                 <TextField fx:id="textFieldName" promptText="Name" GridPane.halignment="CENTER"
                            GridPane.valignment="CENTER"/>
-                <TextField fx:id="textFieldBirthday" accessibleRole="DATE_PICKER" promptText="Birthday"
-                           GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
+                <DatePicker fx:id="datePickerBirthday" prefHeight="27.0" prefWidth="397.0" promptText="Birthday"
+                            GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
                 <TextField fx:id="textFieldCpf" promptText="Cpf" GridPane.halignment="CENTER" GridPane.rowIndex="2"
                            GridPane.valignment="CENTER"/>
                 <TextField fx:id="textFieldRg" promptText="Rg" GridPane.halignment="CENTER" GridPane.rowIndex="3"

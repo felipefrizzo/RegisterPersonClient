@@ -4,6 +4,7 @@ import br.univel.Main;
 import br.univel.view.AbstractEditDialog;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 /**
@@ -17,7 +18,7 @@ public class ClientEditDialogController implements AbstractEditDialog {
     private TextField textFieldName;
 
     @FXML
-    private TextField textFieldBirthday;
+    private DatePicker datePickerBirthday;
 
     @FXML
     private TextField textFieldCpf;
@@ -49,7 +50,7 @@ public class ClientEditDialogController implements AbstractEditDialog {
         if (textFieldName.getText() == null || textFieldName.getText().length() == 0) {
             errorMessage += "No valid Name! \n";
         }
-        if (textFieldBirthday.getText() == null || textFieldBirthday.getText().length() == 0) {
+        if (datePickerBirthday.getValue() == null) {
             errorMessage += "No valid Birthday! \n";
         }
         if (textFieldCpf.getText() == null || textFieldCpf.getText().length() == 0) {
