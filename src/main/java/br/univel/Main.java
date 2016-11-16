@@ -22,6 +22,10 @@ public class Main extends Application {
         launch(args);
     }
 
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
     @Override
     public void start(final Stage primaryStage) throws Exception {
         Objects.requireNonNull(primaryStage, "Stage cannot be null");
