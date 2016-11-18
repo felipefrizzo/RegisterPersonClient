@@ -10,6 +10,10 @@ import java.util.Objects;
 public class RootLayoutController {
     private Main main;
 
+    /**
+     *
+     * @param main set the Main instance.
+     */
     public void setMain(final Main main) {
         Objects.requireNonNull(main, "Main class cannot be null");
 

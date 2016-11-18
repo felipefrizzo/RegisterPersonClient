@@ -1,7 +1,7 @@
 package br.univel.view.professional;
 
 import br.univel.Main;
-import br.univel.view.AbstractEditDialog;
+import br.univel.view.GenericEditDialog;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 /**
  * Created by felipefrizzo on 16/11/16.
  */
-public class ProfessionalEditDialogController implements AbstractEditDialog {
+public class ProfessionalEditDialogController implements GenericEditDialog {
 
     private Main main;
 

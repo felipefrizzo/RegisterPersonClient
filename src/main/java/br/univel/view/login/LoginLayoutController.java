@@ -19,6 +19,10 @@ public class LoginLayoutController {
     @FXML
     private TextField textFieldPassword;
 
+    /**
+     *
+     * @param main the main instance to set.
+     */
     public void setMain(final Main main) {
         this.main = main;
     }
@@ -52,7 +56,7 @@ public class LoginLayoutController {
         }
     }
 
-    public void showError(final String title, final String headerText, final String contentText, final Alert.AlertType type) {
+    private void showError(final String title, final String headerText, final String contentText, final Alert.AlertType type) {
         final Alert alert = new Alert(type);
         alert.initOwner(main.getPrimaryStage());
         alert.setTitle(title);

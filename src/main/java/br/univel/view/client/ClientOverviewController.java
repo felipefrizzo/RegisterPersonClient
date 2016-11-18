@@ -1,8 +1,8 @@
 package br.univel.view.client;
 
 import br.univel.Main;
-import br.univel.model.Client;
-import br.univel.view.AbstractOverviewLayout;
+import br.univel.model.Customer;
+import br.univel.view.GenericOverviewLayout;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -14,24 +14,24 @@ import java.util.Date;
 /**
  * Created by felipefrizzo on 15/11/16.
  */
-public class ClientOverviewController implements AbstractOverviewLayout {
+public class ClientOverviewController implements GenericOverviewLayout {
 
     private Main main;
 
     @FXML
-    private TableView<Client> table;
+    private TableView<Customer> table;
 
     @FXML
-    private TableColumn<Client, String> columnName;
+    private TableColumn<Customer, String> columnName;
 
     @FXML
-    private TableColumn<Client, Date> columnBirthday;
+    private TableColumn<Customer, Date> columnBirthday;
 
     @FXML
-    private TableColumn<Client, String> columnCpf;
+    private TableColumn<Customer, String> columnCpf;
 
     @FXML
-    private TableColumn<Client, String> columnRg;
+    private TableColumn<Customer, String> columnRg;
 
     @Override
     public void setMain(final Main main) {

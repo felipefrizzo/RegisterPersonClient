@@ -7,8 +7,12 @@ import javafx.scene.control.Alert;
 /**
  * Created by felipefrizzo on 15/11/16.
  */
-public interface AbstractOverviewLayout {
+public interface GenericOverviewLayout {
 
+    /**
+     *
+     * @param main set the Main instance.
+     */
     void setMain(final Main main);
 
     /**

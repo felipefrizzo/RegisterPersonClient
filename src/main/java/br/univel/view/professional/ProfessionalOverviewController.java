@@ -2,7 +2,7 @@ package br.univel.view.professional;
 
 import br.univel.Main;
 import br.univel.model.Professional;
-import br.univel.view.AbstractOverviewLayout;
+import br.univel.view.GenericOverviewLayout;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -14,7 +14,7 @@ import java.util.Date;
 /**
  * Created by felipefrizzo on 16/11/16.
  */
-public class ProfessionalOverviewController implements AbstractOverviewLayout {
+public class ProfessionalOverviewController implements GenericOverviewLayout {
 
     private Main main;
 

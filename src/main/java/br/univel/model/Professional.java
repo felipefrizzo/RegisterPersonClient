@@ -17,9 +17,20 @@ public class Professional implements Serializable {
     private String username;
     private String password;
 
+    /**
+     * Initializes a newly created instance of this type without specific arguments.
+     */
     public Professional() {
     }
 
+    /**
+     * Initializes a newly created instance of this type with specific arguments.
+     *
+     * @param name
+     * @param birthday
+     * @param username
+     * @param password
+     */
     public Professional(final String name, final Date birthday, final String username, final String password) {
         Objects.requireNonNull(name, "Name cannot be null");
         Objects.requireNonNull(birthday, "Birthday cannot be null");
@@ -32,42 +43,82 @@ public class Professional implements Serializable {
         this.password = password;
     }
 
+    /**
+     *
+     * @return The current value of this Professional's ID
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id New Value for this Professional's Id
+     */
     public void setId(final Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return The current value of this Professional's Name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name New Value for this Professional's Name
+     */
     public void setName(final String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return The current value of this Professional's Birthday
+     */
     public Date getBirthday() {
         return birthday;
     }
 
+    /**
+     *
+     * @param birthday New Value for this Professional's Birthday
+     */
     public void setBirthday(final Date birthday) {
         this.birthday = birthday;
     }
 
+    /**
+     *
+     * @return The current value of this Professional's Username
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     *
+     * @param username New Value for this Professional's Username.
+     */
     public void setUsername(final String username) {
         this.username = username;
     }
 
+    /**
+     *
+     * @return The current value of this Professional's Password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     *
+     * @param password New Value for this Professional's Password
+     */
     public void setPassword(final String password) {
         this.password = password;
     }

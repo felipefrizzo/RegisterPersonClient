@@ -6,8 +6,12 @@ import javafx.scene.control.Alert;
 /**
  * Created by felipefrizzo on 16/11/16.
  */
-public interface AbstractEditDialog {
+public interface GenericEditDialog {
 
+    /**
+     *
+     * @param main set the Main instance.
+     */
     void setMain(final Main main);
 
     /**
