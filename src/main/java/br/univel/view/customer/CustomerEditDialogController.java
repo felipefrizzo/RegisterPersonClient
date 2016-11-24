@@ -2,6 +2,7 @@ package br.univel.view.customer;
 
 import br.univel.Main;
 import br.univel.client.RequestClient;
+import br.univel.enums.OperationType;
 import br.univel.model.Customer;
 import br.univel.view.GenericEditDialog;
 import javafx.fxml.FXML;
@@ -48,6 +49,7 @@ public class CustomerEditDialogController implements GenericEditDialog {
             customer.setBirthday(datePickerBirthday.getValue());
             customer.setCpf(textFieldCpf.getText());
             customer.setRg(textFieldRg.getText());
+            customer.setOperationType(OperationType.POST);
 
             this.client.sendObject(customer);
         }

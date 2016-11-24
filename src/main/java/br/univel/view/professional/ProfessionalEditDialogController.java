@@ -1,6 +1,8 @@
 package br.univel.view.professional;
 
 import br.univel.Main;
+import br.univel.client.RequestClient;
+import br.univel.client.socket.ClientSocket;
 import br.univel.view.GenericEditDialog;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -13,6 +15,7 @@ import javafx.scene.control.TextField;
 public class ProfessionalEditDialogController implements GenericEditDialog {
 
     private Main main;
+    private RequestClient client;
 
     @FXML
     private TextField textFieldName;
@@ -29,6 +32,11 @@ public class ProfessionalEditDialogController implements GenericEditDialog {
     @Override
     public void setMain(Main main) {
         this.main = main;
+    }
+
+    @Override
+    public void setClient(RequestClient client) {
+        this.client = client;
     }
 
     @Override
