@@ -1,6 +1,8 @@
-package br.univel.view.client;
+package br.univel.view.customer;
 
 import br.univel.Main;
+import br.univel.client.RequestClient;
+import br.univel.model.Customer;
 import br.univel.view.GenericEditDialog;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -10,9 +12,10 @@ import javafx.scene.control.TextField;
 /**
  * Created by felipefrizzo on 16/11/16.
  */
-public class ClientEditDialogController implements GenericEditDialog {
+public class CustomerEditDialogController implements GenericEditDialog {
 
     private Main main;
+    private RequestClient client;
 
     @FXML
     private TextField textFieldName;
@@ -32,9 +35,22 @@ public class ClientEditDialogController implements GenericEditDialog {
     }
 
     @Override
+    public void setClient(RequestClient client) {
+        this.client = client;
+    }
+
+    @Override
     @FXML
     public void handleSave() {
+        if (isInputValid()) {
+            Customer customer = new Customer();
+            customer.setName(textFieldName.getText());
+            customer.setBirthday(datePickerBirthday.getValue());
+            customer.setCpf(textFieldCpf.getText());
+            customer.setRg(textFieldRg.getText());
 
+            this.client.sendObject(customer);
+        }
     }
 
     @Override

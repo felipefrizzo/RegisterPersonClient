@@ -1,4 +1,4 @@
-package br.univel.view.client;
+package br.univel.view.customer;
 
 import br.univel.Main;
 import br.univel.model.Customer;
@@ -14,7 +14,7 @@ import java.util.Date;
 /**
  * Created by felipefrizzo on 15/11/16.
  */
-public class ClientOverviewController implements GenericOverviewLayout {
+public class CustomerOverviewController implements GenericOverviewLayout {
 
     private Main main;
 
