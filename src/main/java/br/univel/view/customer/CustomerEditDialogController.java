@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 public class CustomerEditDialogController implements GenericEditDialog {
 
     private Main main;
+    private Customer customer;
     private RequestClient client;
 
     @FXML
@@ -31,25 +32,53 @@ public class CustomerEditDialogController implements GenericEditDialog {
     private TextField textFieldRg;
 
     @Override
-    public void setMain(Main main) {
+    public void setMain(final Main main) {
         this.main = main;
     }
 
     @Override
-    public void setClient(RequestClient client) {
+    public void setClient(final RequestClient client) {
         this.client = client;
+    }
+
+    /**
+     *
+     * @param customer set the Customer instance.
+     */
+    public void setCustomer(final Customer customer) {
+        this.customer = customer;
+        showCustomerDetails();
+    }
+
+    private void showCustomerDetails() {
+        if (this.customer != null) {
+            textFieldName.setText(this.customer.getName());
+            datePickerBirthday.setValue(this.customer.getBirthday());
+            textFieldCpf.setText(this.customer.getCpf());
+            textFieldRg.setText(this.customer.getRg());
+        } else {
+            textFieldName.setText("");
+            textFieldCpf.setText("");
+            textFieldRg.setText("");
+            datePickerBirthday.setValue(null);
+        }
     }
 
     @Override
     @FXML
     public void handleSave() {
         if (isInputValid()) {
-            Customer customer = new Customer();
+            if (customer == null) {
+                customer = new Customer();
+                customer.setOperationType(OperationType.POST);
+            } else {
+                customer.setOperationType(OperationType.PUT);
+            }
             customer.setName(textFieldName.getText());
             customer.setBirthday(datePickerBirthday.getValue());
             customer.setCpf(textFieldCpf.getText());
             customer.setRg(textFieldRg.getText());
-            customer.setOperationType(OperationType.POST);
+
 
             this.client.sendObject(customer);
         }
@@ -58,7 +87,7 @@ public class CustomerEditDialogController implements GenericEditDialog {
     @Override
     @FXML
     public void handleCancel() {
-
+        this.main.showCustomerOverview();
     }
 
     @Override

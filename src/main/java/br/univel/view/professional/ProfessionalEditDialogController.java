@@ -2,7 +2,8 @@ package br.univel.view.professional;
 
 import br.univel.Main;
 import br.univel.client.RequestClient;
-import br.univel.client.socket.ClientSocket;
+import br.univel.enums.OperationType;
+import br.univel.model.Professional;
 import br.univel.view.GenericEditDialog;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -15,6 +16,7 @@ import javafx.scene.control.TextField;
 public class ProfessionalEditDialogController implements GenericEditDialog {
 
     private Main main;
+    private Professional professional;
     private RequestClient client;
 
     @FXML
@@ -30,25 +32,62 @@ public class ProfessionalEditDialogController implements GenericEditDialog {
     private TextField textFieldPassword;
 
     @Override
-    public void setMain(Main main) {
+    public void setMain(final Main main) {
         this.main = main;
     }
 
     @Override
-    public void setClient(RequestClient client) {
+    public void setClient(final RequestClient client) {
         this.client = client;
+    }
+
+    /**
+     *
+     * @param professional set the Professional instance.
+     */
+    public void setProfessional(final Professional professional) {
+        this.professional = professional;
+        showProfessionalDetails();
+    }
+
+    private void showProfessionalDetails() {
+        if (this.professional != null) {
+            textFieldName.setText(this.professional.getName());
+            datePickerBirthday.setValue(this.professional.getBirthday());
+            textFieldUsername.setText(this.professional.getUsername());
+            textFieldPassword.setText(this.professional.getPassword());
+        } else {
+            textFieldName.setText("");
+            textFieldUsername.setText("");
+            textFieldPassword.setText("");
+            datePickerBirthday.setValue(null);
+        }
     }
 
     @Override
     @FXML
     public void handleSave() {
+        if (isInputValid()) {
+            if (professional == null) {
+                professional = new Professional();
+                professional.setOperationType(OperationType.POST);
+            } else {
+                professional.setOperationType(OperationType.PUT);
+            }
+            professional.setName(textFieldName.getText());
+            professional.setBirthday(datePickerBirthday.getValue());
+            professional.setUsername(textFieldUsername.getText());
+            professional.setPassword(textFieldPassword.getText());
 
+
+            this.client.sendObject(professional);
+        }
     }
 
     @Override
     @FXML
     public void handleCancel() {
-
+        this.main.showProfessionalOverview();
     }
 
     @Override

@@ -1,6 +1,8 @@
 package br.univel.view.customer;
 
 import br.univel.Main;
+import br.univel.client.RequestClient;
+import br.univel.enums.OperationType;
 import br.univel.model.Customer;
 import br.univel.view.GenericOverviewLayout;
 import javafx.event.ActionEvent;
@@ -17,6 +19,7 @@ import java.util.Date;
 public class CustomerOverviewController implements GenericOverviewLayout {
 
     private Main main;
+    private RequestClient client;
 
     @FXML
     private TableView<Customer> table;
@@ -39,6 +42,11 @@ public class CustomerOverviewController implements GenericOverviewLayout {
     }
 
     @Override
+    public void setClient(final RequestClient client) {
+        this.client = client;
+    }
+
+    @Override
     @FXML
     public void handleNew(final ActionEvent event) {
 
@@ -47,13 +55,36 @@ public class CustomerOverviewController implements GenericOverviewLayout {
     @Override
     @FXML
     public void handleEdit(final ActionEvent event) {
+        Customer customerSelected = table.getSelectionModel().getSelectedItem();
 
+        if (customerSelected != null) {
+            this.main.showCustomerEditDialog(customerSelected);
+        } else {
+            showError(
+                "No selected customer",
+                "No selected customer",
+                "Please select a customer",
+                Alert.AlertType.ERROR
+            );
+        }
     }
 
     @Override
     @FXML
     public void handleDelete(final ActionEvent event) {
+        Customer customerSelected = table.getSelectionModel().getSelectedItem();
 
+        if (customerSelected != null) {
+            customerSelected.setOperationType(OperationType.DELETE);
+            this.client.sendObject(customerSelected);
+        } else {
+            showError(
+                "No selected customer",
+                "No selected customer",
+                "Please select a customer",
+                Alert.AlertType.ERROR
+            );
+        }
     }
 
     @Override

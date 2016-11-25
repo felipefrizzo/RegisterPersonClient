@@ -1,6 +1,8 @@
 package br.univel.view.professional;
 
 import br.univel.Main;
+import br.univel.client.RequestClient;
+import br.univel.enums.OperationType;
 import br.univel.model.Professional;
 import br.univel.view.GenericOverviewLayout;
 import javafx.event.ActionEvent;
@@ -17,6 +19,7 @@ import java.util.Date;
 public class ProfessionalOverviewController implements GenericOverviewLayout {
 
     private Main main;
+    private RequestClient client;
 
     @FXML
     private TableView<Professional> table;
@@ -36,21 +39,49 @@ public class ProfessionalOverviewController implements GenericOverviewLayout {
     }
 
     @Override
+    public void setClient(RequestClient client) {
+        this.client = client;
+    }
+
+    @Override
     @FXML
     public void handleNew(final ActionEvent event) {
-
+        this.main.showProfessionalEditDialog(null);
     }
 
     @Override
     @FXML
     public void handleEdit(final ActionEvent event) {
+        Professional professionalSelected = table.getSelectionModel().getSelectedItem();
 
+        if (professionalSelected != null) {
+            this.main.showProfessionalEditDialog(professionalSelected);
+        } else {
+            showError(
+                "No selected professional",
+                "No selected professional",
+                "Please select a professional",
+                Alert.AlertType.ERROR
+            );
+        }
     }
 
     @Override
     @FXML
     public void handleDelete(final ActionEvent event) {
+        Professional professionalSelected = table.getSelectionModel().getSelectedItem();
 
+        if (professionalSelected != null) {
+            professionalSelected.setOperationType(OperationType.DELETE);
+            this.client.sendObject(professionalSelected);
+        } else {
+            showError(
+                "No selected professional",
+                "No selected professional",
+                "Please select a professional",
+                Alert.AlertType.ERROR
+            );
+        }
     }
 
     @Override

@@ -2,6 +2,8 @@ package br.univel;
 
 import br.univel.client.RequestClient;
 import br.univel.client.socket.ClientSocket;
+import br.univel.model.Customer;
+import br.univel.model.Professional;
 import br.univel.view.MainLayoutController;
 import br.univel.view.customer.CustomerEditDialogController;
 import br.univel.view.customer.CustomerOverviewController;
@@ -109,7 +111,7 @@ public class Main extends Application {
         }
     }
 
-    public void showCustomerEditDialog() {
+    public void showCustomerEditDialog(final Customer customer) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/customer/CustomerEditDialog.fxml"));
@@ -121,6 +123,7 @@ public class Main extends Application {
 
             controller.setMain(this);
             controller.setClient(client);
+            controller.setCustomer(customer);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -142,7 +145,7 @@ public class Main extends Application {
         }
     }
 
-    public void showProfessionalEditDialog() {
+    public void showProfessionalEditDialog(final Professional professional) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/professional/ProfessionalEditDialog.fxml"));
@@ -154,6 +157,7 @@ public class Main extends Application {
 
             controller.setMain(this);
             controller.setClient(client);
+            controller.setProfessional(professional);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
