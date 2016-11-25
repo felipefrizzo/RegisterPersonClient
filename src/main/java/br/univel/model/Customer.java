@@ -28,7 +28,6 @@ public class Customer implements Serializable {
 
     /**
      * Initializes a newly created instance of this type with specific arguments.
-     *
      * @param name
      * @param birthday
      * @param cpf
@@ -140,7 +139,7 @@ public class Customer implements Serializable {
      *
      * @param operationType New Value for this Customer's Operation Type
      */
-    public void setOperationType(OperationType operationType) {
+    public void setOperationType(final OperationType operationType) {
         this.operationType = operationType;
     }
 }
