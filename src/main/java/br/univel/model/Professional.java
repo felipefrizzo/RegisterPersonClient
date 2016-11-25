@@ -3,7 +3,7 @@ package br.univel.model;
 import br.univel.enums.OperationType;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -15,7 +15,7 @@ public class Professional implements Serializable {
 
     private Long id;
     private String name;
-    private Date birthday;
+    private LocalDate birthday;
     private String username;
     private String password;
     private OperationType operationType;
@@ -35,7 +35,7 @@ public class Professional implements Serializable {
      * @param password
      * @param operationType
      */
-    public Professional(final String name, final Date birthday, final String username, final String password, final OperationType operationType) {
+    public Professional(final String name, final LocalDate birthday, final String username, final String password, final OperationType operationType) {
         Objects.requireNonNull(name, "Name cannot be null");
         Objects.requireNonNull(birthday, "Birthday cannot be null");
         Objects.requireNonNull(username, "Cpf cannot be null");
@@ -84,7 +84,7 @@ public class Professional implements Serializable {
      *
      * @return The current value of this Professional's Birthday
      */
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
@@ -92,7 +92,7 @@ public class Professional implements Serializable {
      *
      * @param birthday New Value for this Professional's Birthday
      */
-    public void setBirthday(final Date birthday) {
+    public void setBirthday(final LocalDate birthday) {
         this.birthday = birthday;
     }
 

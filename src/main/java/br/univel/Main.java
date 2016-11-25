@@ -2,7 +2,7 @@ package br.univel;
 
 import br.univel.client.RequestClient;
 import br.univel.client.socket.ClientSocket;
-import br.univel.view.RootLayoutController;
+import br.univel.view.MainLayoutController;
 import br.univel.view.customer.CustomerEditDialogController;
 import br.univel.view.customer.CustomerOverviewController;
 import br.univel.view.login.LoginLayoutController;
@@ -43,6 +43,7 @@ public class Main extends Application {
         this.primaryStage.setTitle("Register Person Application");
 
         initRootLayout();
+        showMainLayout();
     }
 
     private void initRootLayout() {
@@ -53,10 +54,6 @@ public class Main extends Application {
             rootLayout = loader.load();
 
             primaryStage.setScene(new Scene(rootLayout));
-
-            RootLayoutController controller = loader.getController();
-            controller.setMain(this);
-
             primaryStage.show();
 
         } catch (IOException e) {
@@ -64,7 +61,7 @@ public class Main extends Application {
         }
     }
 
-    private void showLoginLayout() {
+    public void showLoginLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/login/LoginLayout.fxml"));
@@ -80,7 +77,23 @@ public class Main extends Application {
         }
     }
 
-    private void showCustomerOverview() {
+    public void showMainLayout() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/MainLayout.fxml"));
+
+            AnchorPane layout = loader.load();
+            rootLayout.setCenter(layout);
+
+            MainLayoutController controller = loader.getController();
+
+            controller.setMain(this);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void showCustomerOverview() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/customer/CustomerOverviewLayout.fxml"));
@@ -96,7 +109,7 @@ public class Main extends Application {
         }
     }
 
-    private void showCustomerEditDialog() {
+    public void showCustomerEditDialog() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/customer/CustomerEditDialog.fxml"));
@@ -113,7 +126,7 @@ public class Main extends Application {
         }
     }
 
-    private void showProfessionalOverview() {
+    public void showProfessionalOverview() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/professional/ProfessionalOverviewLayout.fxml"));
@@ -129,7 +142,7 @@ public class Main extends Application {
         }
     }
 
-    private void showProfessionalEditDialog() {
+    public void showProfessionalEditDialog() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/professional/ProfessionalEditDialog.fxml"));

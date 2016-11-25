@@ -1,6 +1,7 @@
 package br.univel.view;
 
 import br.univel.Main;
+import br.univel.client.RequestClient;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 
@@ -14,6 +15,12 @@ public interface GenericOverviewLayout {
      * @param main set the Main instance.
      */
     void setMain(final Main main);
+
+    /**
+     *
+     * @param client set the ClientSocket instance.
+     */
+    void setClient(final RequestClient client);
 
     /**
      * Called when user clicks in button to create a new Object.
