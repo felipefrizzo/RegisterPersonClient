@@ -105,6 +105,7 @@ public class Main extends Application {
 
             CustomerOverviewController controller = loader.getController();
 
+            controller.setClient(this.client);
             controller.setMain(this);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -139,6 +140,7 @@ public class Main extends Application {
 
             ProfessionalOverviewController controller = loader.getController();
 
+            controller.setClient(client);
             controller.setMain(this);
         } catch (IOException e) {
             throw new RuntimeException(e);
