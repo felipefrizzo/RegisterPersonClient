@@ -10,8 +10,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * Created by felipefrizzo on 15/11/16.
@@ -22,13 +24,20 @@ public class CustomerOverviewController implements GenericOverviewLayout {
     private RequestClient client;
 
     @FXML
+    public void initialize() {
+        columnName.setCellValueFactory(new PropertyValueFactory<Customer, String>("name"));
+        columnBirthday.setCellValueFactory(new PropertyValueFactory<Customer, LocalDate>("birthday"));
+        columnCpf.setCellValueFactory(new PropertyValueFactory<Customer, String>("cpf"));
+        columnRg.setCellValueFactory(new PropertyValueFactory<Customer, String>("rg"));
+    }
+    @FXML
     private TableView<Customer> table;
 
     @FXML
     private TableColumn<Customer, String> columnName;
 
     @FXML
-    private TableColumn<Customer, Date> columnBirthday;
+    private TableColumn<Customer, LocalDate> columnBirthday;
 
     @FXML
     private TableColumn<Customer, String> columnCpf;
@@ -38,18 +47,26 @@ public class CustomerOverviewController implements GenericOverviewLayout {
 
     @Override
     public void setMain(final Main main) {
+        Objects.requireNonNull(main, "Main class cannot be null");
         this.main = main;
     }
 
     @Override
     public void setClient(final RequestClient client) {
+        Objects.requireNonNull(client, "Client cannot be null");
         this.client = client;
+
+        getItemsTable();
+    }
+
+    public void getItemsTable() {
+        table.setItems(new GetCustomers(this.client).getList());
     }
 
     @Override
     @FXML
     public void handleNew(final ActionEvent event) {
-
+        this.main.showCustomerEditDialog(null);
     }
 
     @Override

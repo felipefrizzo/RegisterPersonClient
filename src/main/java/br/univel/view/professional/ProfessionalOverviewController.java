@@ -10,8 +10,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * Created by felipefrizzo on 16/11/16.
@@ -22,25 +24,40 @@ public class ProfessionalOverviewController implements GenericOverviewLayout {
     private RequestClient client;
 
     @FXML
+    public void initialize() {
+        columnName.setCellValueFactory(new PropertyValueFactory<Professional, String>("name"));
+        columnBirthday.setCellValueFactory(new PropertyValueFactory<Professional, LocalDate>("birthday"));
+        columnUsername.setCellValueFactory(new PropertyValueFactory<Professional, String>("username"));
+    }
+
+    @FXML
     private TableView<Professional> table;
 
     @FXML
     private TableColumn<Professional, String> columnName;
 
     @FXML
-    private TableColumn<Professional, Date> columnBirthday;
+    private TableColumn<Professional, LocalDate> columnBirthday;
 
     @FXML
     private TableColumn<Professional, String> columnUsername;
 
     @Override
     public void setMain(final Main main) {
+        Objects.requireNonNull(main, "Main class cannot be null");
         this.main = main;
     }
 
     @Override
-    public void setClient(RequestClient client) {
+    public void setClient(final RequestClient client) {
+        Objects.requireNonNull(client, "Client cannot be null");
         this.client = client;
+
+        getItemsTable();
+    }
+
+    public void getItemsTable() {
+        table.setItems(new GetProfessionals(this.client).getList());
     }
 
     @Override
