@@ -4,16 +4,19 @@ import br.univel.Main;
 import br.univel.client.RequestClient;
 import br.univel.enums.OperationType;
 import br.univel.model.Customer;
+import br.univel.model.ErrorMessage;
 import br.univel.view.GenericOverviewLayout;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Created by felipefrizzo on 15/11/16.
@@ -93,7 +96,24 @@ public class CustomerOverviewController implements GenericOverviewLayout {
 
         if (customerSelected != null) {
             customerSelected.setOperationType(OperationType.DELETE);
-            this.client.sendObject(customerSelected);
+
+            Optional<ButtonType> result = showError(
+                "You want to delete",
+                "You want to delete this Customer ?",
+                "If you want to delete click OK",
+                Alert.AlertType.CONFIRMATION
+            );
+
+            if (result.get() == ButtonType.OK) {
+                Object object = this.client.sendObject(customerSelected);
+                if (object instanceof ErrorMessage) {
+                    ErrorMessage errorMessage = (ErrorMessage) object;
+                    if (!errorMessage.getError()) {
+                        getItemsTable();
+                    }
+                }
+            }
+
         } else {
             showError(
                 "No selected customer",
@@ -105,13 +125,13 @@ public class CustomerOverviewController implements GenericOverviewLayout {
     }
 
     @Override
-    public void showError(final String title, final String headerText, final String contentText, final Alert.AlertType type) {
+    public Optional<ButtonType> showError(final String title, final String headerText, final String contentText, final Alert.AlertType type) {
         final Alert alert = new Alert(type);
         alert.initOwner(main.getPrimaryStage());
         alert.setTitle(title);
         alert.setHeaderText(headerText);
         alert.setContentText(contentText);
 
-        alert.showAndWait();
+        return alert.showAndWait();
     }
 }

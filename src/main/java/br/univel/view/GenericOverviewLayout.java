@@ -4,6 +4,9 @@ import br.univel.Main;
 import br.univel.client.RequestClient;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+
+import java.util.Optional;
 
 /**
  * Created by felipefrizzo on 15/11/16.
@@ -51,6 +54,6 @@ public interface GenericOverviewLayout {
      * @param contentText
      * @param type
      */
-    void showError(final String title, final String headerText, final String contentText, Alert.AlertType type);
+    Optional<ButtonType> showError(final String title, final String headerText, final String contentText, Alert.AlertType type);
 
 }

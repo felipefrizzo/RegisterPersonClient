@@ -4,11 +4,14 @@ import br.univel.Main;
 import br.univel.client.RequestClient;
 import br.univel.enums.OperationType;
 import br.univel.model.Customer;
+import br.univel.model.ErrorMessage;
 import br.univel.view.GenericEditDialog;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+
+import java.util.Objects;
 
 /**
  * Created by felipefrizzo on 16/11/16.
@@ -80,7 +83,8 @@ public class CustomerEditDialogController implements GenericEditDialog {
             customer.setRg(textFieldRg.getText());
 
 
-            this.client.sendObject(customer);
+            Object object = this.client.sendObject(customer);
+            serverValidation(object);
         }
     }
 
@@ -118,6 +122,22 @@ public class CustomerEditDialogController implements GenericEditDialog {
             );
 
             return false;
+        }
+    }
+
+    public void serverValidation(Object object) {
+        if (object instanceof ErrorMessage) {
+            ErrorMessage errorMessage = (ErrorMessage) object;
+            if (errorMessage.getError()) {
+                showError(
+                    "Server Validation",
+                    "Please correct invalid fields",
+                    errorMessage.getErrorText(),
+                    Alert.AlertType.ERROR
+                );
+            } else {
+                this.main.showCustomerOverview();
+            }
         }
     }
 

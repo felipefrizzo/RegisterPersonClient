@@ -23,7 +23,7 @@ public class GetCustomers {
 
         Customer customer = new Customer();
         customer.setOperationType(OperationType.GET);
-        System.out.println(customer.getOperationType());
+
         this.customers = (ArrayList<Customer>) this.client.sendObject(customer);
         this.customers.forEach(c -> list.add(c));
     }
