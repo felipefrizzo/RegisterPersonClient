@@ -12,18 +12,34 @@ public class ErrorMessage implements Serializable{
     private Boolean error;
     private String errorText;
 
+    /**
+     *
+     * @return The current value of this Error Message's Error
+     */
     public Boolean getError() {
         return error;
     }
 
+    /**
+     *
+     * @param error New Value for this Error Message's Error
+     */
     public void setError(final Boolean error) {
         this.error = error;
     }
 
+    /**
+     *
+     * @return The current value of this Error Message's Error Text
+     */
     public String getErrorText() {
         return errorText;
     }
 
+    /**
+     *
+     * @param errorText New Value for this Error Message's Error
+     */
     public void setErrorText(final String errorText) {
         this.errorText = errorText;
     }

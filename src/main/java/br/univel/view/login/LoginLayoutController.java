@@ -1,10 +1,15 @@
 package br.univel.view.login;
 
 import br.univel.Main;
-import javafx.event.ActionEvent;
+import br.univel.client.RequestClient;
+import br.univel.enums.OperationType;
+import br.univel.model.ErrorMessage;
+import br.univel.model.Professional;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+
+import java.util.Objects;
 
 /**
  * Created by felipefrizzo on 16/11/16.
@@ -12,6 +17,7 @@ import javafx.scene.control.TextField;
 public class LoginLayoutController {
 
     private Main main;
+    private RequestClient client;
 
     @FXML
     private TextField textFieldUsername;
@@ -24,22 +30,38 @@ public class LoginLayoutController {
      * @param main the main instance to set.
      */
     public void setMain(final Main main) {
+        Objects.requireNonNull(main, "Main cannot be null");
+
         this.main = main;
     }
 
-    @FXML
-    void handleLogin(final ActionEvent event) {
+    public void setClient(final RequestClient client) {
+        Objects.requireNonNull(client, "Client cannot be null");
+        this.client = client;
+    }
 
+    @FXML
+    void handleLogin() {
+        if (isInputValid()) {
+            Professional professional = new Professional();
+            professional.setOperationType(OperationType.LOGIN);
+            professional.setUsername(textFieldUsername.getText());
+            professional.setPassword(textFieldPassword.getText());
+
+            Object object = this.client.sendObject(professional);
+
+            serverValidation(object);
+        }
     }
 
     private boolean isInputValid() {
-        String errorMessage = "";
+        StringBuilder errorMessage = new StringBuilder();
 
         if (textFieldUsername.getText() == null || textFieldUsername.getText().length() == 0) {
-            errorMessage += "No valid Username! \n";
+            errorMessage.append("No valid Username! \n");
         }
         if (textFieldPassword.getText() == null || textFieldPassword.getText().length() == 0) {
-            errorMessage += "No valid Password! \n";
+            errorMessage.append("No valid Password! \n");
         }
 
         if (errorMessage.length() == 0) {
@@ -48,7 +70,7 @@ public class LoginLayoutController {
             showError(
                 "Invalid Fields",
                 "Please correct invalid fields.",
-                errorMessage,
+                errorMessage.toString(),
                 Alert.AlertType.ERROR
             );
 
@@ -56,7 +78,30 @@ public class LoginLayoutController {
         }
     }
 
+    public void serverValidation(final Object object) {
+        Objects.requireNonNull(object, "Object cannot be null");
+
+        if (object instanceof ErrorMessage) {
+            ErrorMessage errorMessage = (ErrorMessage) object;
+            if (errorMessage.getError()) {
+                showError(
+                    "Server Validation",
+                    "Please correct invalid fields",
+                    errorMessage.getErrorText(),
+                    Alert.AlertType.ERROR
+                );
+            } else {
+                this.main.showMainLayout();
+            }
+        }
+    }
+
     private void showError(final String title, final String headerText, final String contentText, final Alert.AlertType type) {
+        Objects.requireNonNull(title, "Title cannot be null");
+        Objects.requireNonNull(headerText, "Header Text cannot be null");
+        Objects.requireNonNull(contentText, "Content Text cannot be null");
+        Objects.requireNonNull(type, "Type cannot be null");
+
         final Alert alert = new Alert(type);
         alert.initOwner(main.getPrimaryStage());
         alert.setTitle(title);

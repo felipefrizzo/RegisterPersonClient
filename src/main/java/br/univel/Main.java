@@ -45,7 +45,7 @@ public class Main extends Application {
         this.primaryStage.setTitle("Register Person Application");
 
         initRootLayout();
-        showMainLayout();
+        showLoginLayout();
     }
 
     private void initRootLayout() {
@@ -73,6 +73,7 @@ public class Main extends Application {
 
             LoginLayoutController controller = loader.getController();
 
+            controller.setClient(this.client);
             controller.setMain(this);
         } catch (IOException e) {
             throw new RuntimeException(e);

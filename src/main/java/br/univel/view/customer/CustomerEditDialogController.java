@@ -96,19 +96,19 @@ public class CustomerEditDialogController implements GenericEditDialog {
 
     @Override
     public boolean isInputValid() {
-        String errorMessage = "";
+        StringBuilder errorMessage = new StringBuilder();
 
         if (textFieldName.getText() == null || textFieldName.getText().length() == 0) {
-            errorMessage += "No valid Name! \n";
+            errorMessage.append("No valid Name! \n");
         }
         if (datePickerBirthday.getValue() == null) {
-            errorMessage += "No valid Birthday! \n";
+            errorMessage.append("No valid Birthday! \n");
         }
         if (textFieldCpf.getText() == null || textFieldCpf.getText().length() == 0) {
-            errorMessage += "No valid CPF! \n";
+            errorMessage.append("No valid CPF! \n");
         }
         if (textFieldRg.getText() == null || textFieldRg.getText().length() == 0) {
-            errorMessage += "No valid RG! \n";
+            errorMessage.append("No valid RG! \n");
         }
 
         if (errorMessage.length() == 0) {
@@ -117,7 +117,7 @@ public class CustomerEditDialogController implements GenericEditDialog {
             showError(
                 "Invalid Fields",
                 "Please correct invalid fields.",
-                errorMessage,
+                errorMessage.toString(),
                 Alert.AlertType.ERROR
             );
 
@@ -126,7 +126,9 @@ public class CustomerEditDialogController implements GenericEditDialog {
     }
 
     @Override
-    public void serverValidation(Object object) {
+    public void serverValidation(final Object object) {
+        Objects.requireNonNull(object, "Object cannot be null");
+
         if (object instanceof ErrorMessage) {
             ErrorMessage errorMessage = (ErrorMessage) object;
             if (errorMessage.getError()) {

@@ -11,6 +11,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
+import java.util.Objects;
+
 /**
  * Created by felipefrizzo on 16/11/16.
  */
@@ -94,19 +96,19 @@ public class ProfessionalEditDialogController implements GenericEditDialog {
 
     @Override
     public boolean isInputValid() {
-        String errorMessage = "";
+        StringBuilder errorMessage = new StringBuilder();
 
         if (textFieldName.getText() == null || textFieldName.getText().length() == 0) {
-            errorMessage += "No valid Name! \n";
+            errorMessage.append("No valid Name! \n");
         }
         if (datePickerBirthday.getValue() == null) {
-            errorMessage += "No valid Birthday! \n";
+            errorMessage.append("No valid Birthday! \n");
         }
         if (textFieldUsername.getText() == null || textFieldUsername.getText().length() == 0) {
-            errorMessage += "No valid Username! \n";
+            errorMessage.append("No valid Username! \n");
         }
         if (textFieldPassword.getText() == null || textFieldPassword.getText().length() == 0) {
-            errorMessage += "No valid Password! \n";
+            errorMessage.append("No valid Password! \n");
         }
 
         if (errorMessage.length() == 0) {
@@ -115,7 +117,7 @@ public class ProfessionalEditDialogController implements GenericEditDialog {
             showError(
                 "Invalid Fields",
                 "Please correct invalid fields.",
-                errorMessage,
+                errorMessage.toString(),
                 Alert.AlertType.ERROR
             );
 
@@ -125,6 +127,8 @@ public class ProfessionalEditDialogController implements GenericEditDialog {
 
     @Override
     public void serverValidation(Object object) {
+        Objects.requireNonNull(object, "Object cannot be null");
+
         if (object instanceof ErrorMessage) {
             ErrorMessage errorMessage = (ErrorMessage) object;
             if (errorMessage.getError()) {
