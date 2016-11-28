@@ -39,6 +39,13 @@ public interface GenericEditDialog {
     boolean isInputValid();
 
     /**
+     * Show server validation or back to Overview.
+     *
+     * @param object
+     */
+    void serverValidation(Object object);
+
+    /**
      * Show the error Message.
      *
      * @param title

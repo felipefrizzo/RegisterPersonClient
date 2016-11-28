@@ -3,6 +3,7 @@ package br.univel.view.professional;
 import br.univel.Main;
 import br.univel.client.RequestClient;
 import br.univel.enums.OperationType;
+import br.univel.model.ErrorMessage;
 import br.univel.model.Professional;
 import br.univel.view.GenericEditDialog;
 import javafx.fxml.FXML;
@@ -80,7 +81,8 @@ public class ProfessionalEditDialogController implements GenericEditDialog {
             professional.setPassword(textFieldPassword.getText());
 
 
-            this.client.sendObject(professional);
+            Object object = this.client.sendObject(professional);
+            serverValidation(object);
         }
     }
 
@@ -118,6 +120,23 @@ public class ProfessionalEditDialogController implements GenericEditDialog {
             );
 
             return false;
+        }
+    }
+
+    @Override
+    public void serverValidation(Object object) {
+        if (object instanceof ErrorMessage) {
+            ErrorMessage errorMessage = (ErrorMessage) object;
+            if (errorMessage.getError()) {
+                showError(
+                    "Server Validation",
+                    "Please correct invalid fields",
+                    errorMessage.getErrorText(),
+                    Alert.AlertType.ERROR
+                );
+            } else {
+                this.main.showProfessionalOverview();
+            }
         }
     }
 

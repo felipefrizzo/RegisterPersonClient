@@ -125,6 +125,7 @@ public class CustomerEditDialogController implements GenericEditDialog {
         }
     }
 
+    @Override
     public void serverValidation(Object object) {
         if (object instanceof ErrorMessage) {
             ErrorMessage errorMessage = (ErrorMessage) object;
