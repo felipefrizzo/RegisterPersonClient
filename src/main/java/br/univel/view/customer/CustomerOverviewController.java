@@ -134,4 +134,9 @@ public class CustomerOverviewController implements GenericOverviewLayout {
 
         return alert.showAndWait();
     }
+
+    @FXML
+    void backToMainLayout() {
+        this.main.showMainLayout();
+    }
 }
