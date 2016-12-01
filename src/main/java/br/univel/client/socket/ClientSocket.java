@@ -1,14 +1,12 @@
 package br.univel.client.socket;
 
 import br.univel.client.RequestClient;
-import br.univel.model.Customer;
-import br.univel.model.Professional;
+import javafx.scene.control.Alert;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -27,6 +25,12 @@ public class ClientSocket implements RequestClient {
 
             return input.readObject();
         } catch (ClassNotFoundException| IOException e) {
+            final Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Server offline");
+            alert.setHeaderText("Please check the connection to the server");
+            alert.setContentText("Please check the connection to the server. Connection refused.");
+
+            alert.showAndWait();
             throw new RuntimeException(e);
         }
     }
